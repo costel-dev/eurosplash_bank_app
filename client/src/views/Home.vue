@@ -1,18 +1,66 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-card class="overflow-hidden" height="100%">
+    <!-- Navbar -->
+    <v-app-bar color="blue" dark>
+      <!-- Hamburger Menu -->
+      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>EuroSplash</v-toolbar-title>
+    </v-app-bar>
+    <!-- Sidebar Navigation -->
+    <v-navigation-drawer absolute temporary v-model="drawer">
+      <v-list nav dense>
+        <v-list-item-group v-model="group" active-class="blue--text">
+          <v-list-item v-for="(item, ndx) in menuItems" v-bind:key="ndx">
+            <v-list-item-icon>
+              <v-icon> {{ item.icon }} </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title> {{ item.text }} </v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+    <!-- Content of our view -->
+    <v-main>
+      <v-container fluid>
+        <v-layout>
+          <Transactions />
+        </v-layout>
+      </v-container>
+    </v-main>
+    <EditTransactions />
+  </v-card>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Transactions from "./Transactions";
+import EditTransactions from "./EditTransactions.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    Transactions,
+    EditTransactions,
+  },
+  data: () => ({
+    drawer: false,
+    group: null,
+    menuItems: [
+      { icon: "contacts", text: "Add Transaction" },
+      { icon: "history", text: "Current Month" },
+      { icon: "content_copy", text: "Notes" },
+      { icon: "settings", text: "Settings" },
+      { icon: "chat_bubble", text: "Send feedback" },
+      { icon: "help", text: "Help" },
+    ],
+  }),
+  methods: {
+    menuAction: function() {
+      // TODO
+    },
+    showProfile: function() {
+      console.log("show profile clicked!");
+    },
+  },
+};
 </script>
