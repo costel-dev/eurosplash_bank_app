@@ -20,6 +20,20 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
+    <!--  -->
+    <v-toolbar color="blue darken-3" dark app clipped-left fixed>
+      <v-toolbar-title
+        :style="$vuetify.breakpoint.smAndUp ? '' : 'min-width: 72px'"
+        class="ml-0 pl-3"
+      >
+        <v-toolbar-side-icon
+          @click.stop="drawer = !drawer"
+        ></v-toolbar-side-icon>
+        <span class="hidden-xs-only">Globomantics Rewards</span>
+      </v-toolbar-title>
+      <header-actions></header-actions>
+    </v-toolbar>
+    <!--  -->
     <!-- Content of our view -->
     <v-main>
       <v-container fluid>
@@ -35,12 +49,19 @@
 <script>
 import Transactions from "./Transactions";
 import EditTransactions from "./EditTransactions.vue";
+import HeaderActions from "../components/HeaderActions";
 
 export default {
   name: "Home",
   components: {
     Transactions,
     EditTransactions,
+    HeaderActions,
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
   },
   data: () => ({
     drawer: false,
@@ -61,6 +82,12 @@ export default {
     showProfile: function() {
       console.log("show profile clicked!");
     },
+  },
+  mounted: function() {
+    console.log("Is user logged in?", this.isLoggedIn);
+    if (!this.isLoggedIn) {
+      this.$router.push({ path: "/" });
+    }
   },
 };
 </script>

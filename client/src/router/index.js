@@ -4,14 +4,9 @@ import Home from '../views/Home.vue'
 import About from "../views/About.vue"
 import Login from "../components/Login.vue"
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'HelloWorld',
-  //   component: HelloWorld
-  // },
   {
     path: '/',
     name: 'Home',
@@ -27,10 +22,10 @@ const routes = [
     name: 'About',
     component: About
   },
-  {
+  /* {
     path: '*',
     redirect: '/'
-  }
+  } */
 ]
 
 const router = new VueRouter({
